@@ -14,7 +14,6 @@ import java.util.logging.Logger;
  * Created by Mario on 07.05.2016.
  */
 @Singleton
-@Startup
 public class MessageAsyncProducer {
 
     @Inject
@@ -27,10 +26,6 @@ public class MessageAsyncProducer {
     @JMSConnectionFactory("java:jboss/DefaultJMSConnectionFactory")
     private JMSContext context;
 
-    @PostConstruct
-    private void init() {
-        sendMessage("go for it async");
-    }
 
     public void sendMessage(Serializable objectModel) {
         logger.info("send Message message to queue: " + objectModel);

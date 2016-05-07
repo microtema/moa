@@ -1,5 +1,6 @@
 package de.seven.fate.moa.queue.producer;
 
+import de.seven.fate.moa.dto.MessagesDTO;
 import de.seven.fate.model.util.CollectionUtil;
 
 import javax.annotation.PostConstruct;
@@ -17,7 +18,6 @@ import java.util.logging.Logger;
  * Created by Mario on 07.05.2016.
  */
 @Singleton
-@Startup
 public class MessageProducer {
 
     @Inject
@@ -30,22 +30,19 @@ public class MessageProducer {
     @JMSConnectionFactory("java:jboss/DefaultJMSConnectionFactory")
     private JMSContext context;
 
-    @PostConstruct
-    private void init() {
-       sendMessage("go for it");
-    }
 
     public void sendMessage(Serializable objectModel) {
-        logger.info("send Message message to queue: " + objectModel);
+        logger.info("send Message to queue: " + objectModel);
 
-        TextMessage textMessage = context.createTextMessage(String.valueOf(objectModel));
+        Message message = context.createObjectMessage(objectModel);
 
-        applyMessageProperty(textMessage, "type", objectModel.getClass().getSimpleName());
+        applyMessageProperty(message, "type", objectModel.getClass().getSimpleName());
 
-        context.createProducer().send(queue, textMessage);
+        context.createProducer().send(queue, message);
     }
 
-    private void applyMessageProperty(TextMessage textMessage, String propertyName, String propertyValue) {
+
+    private void applyMessageProperty(Message textMessage, String propertyName, String propertyValue) {
 
         try {
             textMessage.setStringProperty(propertyName, propertyValue);

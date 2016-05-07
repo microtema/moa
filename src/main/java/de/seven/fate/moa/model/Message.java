@@ -4,7 +4,9 @@ import de.seven.fate.moa.dao.BaseEntity;
 import de.seven.fate.moa.dao.IdAble;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -17,7 +19,9 @@ public class Message extends BaseEntity<Long> {
     @NotNull
     private String title;
 
+    @Lob
     @NotNull
+    @Column(length = 2048)
     private String description;
 
     @NotNull
