@@ -9,7 +9,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.inject.Inject;
 import javax.xml.bind.JAXBContext;
 
 import org.apache.camel.converter.jaxb.JaxbDataFormat;
@@ -18,14 +17,23 @@ import org.apache.camel.converter.jaxb.JaxbDataFormat;
 @Startup
 public class XmlMessageRouteBuilder extends RouteBuilder {
 
-    private final JaxbDataFormat messagesData = new JaxbDataFormat();
-    private final CamelContext camelContext = new DefaultCamelContext();
+    private static final JaxbDataFormat messagesData = new JaxbDataFormat();
+    private static final CamelContext camelContext = new DefaultCamelContext();
 
-    @Resource(lookup = "java:global/IMPORT_PATH")
-    private String uri;
+    @Resource(lookup = "java:global/REDELIVERY_DELAY")
+    private int redeliveryDelay;
 
-    @Inject
-    private XmlMessageProcessor messageProcessor;
+    @Resource(lookup = "java:global/MAXIMUM_REDELIVERIES")
+    private int maximumRedeliveries;
+
+    @Resource(lookup = "java:global/IMPORT_URI")
+    private String fromUri;
+
+    @Resource(lookup = "java:global/EXPORT_URI")
+    private String toUri;
+
+    @Resource(lookup = "java:global/DLQ_URI")
+    private String dlqUri;
 
 
     @PostConstruct
@@ -47,10 +55,13 @@ public class XmlMessageRouteBuilder extends RouteBuilder {
     @Override
     public void configure() {
 
-        from(uri)
-                .unmarshal(messagesData)
-                // .to("jms:queue:ExpiryQueue?connectionFactory=ConnectionFactory");
-                .process(messageProcessor);
+        //Dead Letter Channel on failed transaction
+        errorHandler(deadLetterChannel(dlqUri));
+
+        // in case of any exception then try to redeliver up till 2 times
+        onException(Exception.class).maximumRedeliveries(maximumRedeliveries).redeliveryDelay(redeliveryDelay);
+
+        from(fromUri).unmarshal(messagesData).to(toUri);
     }
 
 }

@@ -7,9 +7,35 @@
     </welcome-file-list>
 
     <env-entry>
-        <env-entry-name>java:global/IMPORT_PATH</env-entry-name>
+        <env-entry-name>java:global/IMPORT_URI</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
         <env-entry-value>file://C:/data/input</env-entry-value>
+    </env-entry>
+
+    <env-entry>
+        <env-entry-name>java:global/EXPORT_URI</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>jms:queue:ExpiryQueue?connectionFactory=ConnectionFactory</env-entry-value>
+    </env-entry>
+
+    <env-entry>
+        <env-entry-name>java:global/DLQ_URI</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>jms:queue:DLQ?connectionFactory=ConnectionFactory</env-entry-value>
+    </env-entry>
+
+    <env-entry>
+        <env-entry-name>java:global/MAXIMUM_REDELIVERIES</env-entry-name>
+        <env-entry-type>java.lang.Integer</env-entry-type>
+        <env-entry-value>2</env-entry-value>
+        <description>Sets the maximum redeliveries</description>
+    </env-entry>
+
+    <env-entry>
+        <env-entry-name>java:global/REDELIVERY_DELAY</env-entry-name>
+        <env-entry-type>java.lang.Integer</env-entry-type>
+        <env-entry-value>0</env-entry-value>
+        <description>Sets the initial redelivery delay</description>
     </env-entry>
 
 </web-app>
