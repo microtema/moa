@@ -18,7 +18,10 @@ public final class DeploymentUtil {
     public static WebArchive createDeployment(Class... classes) {
 
         return ShrinkWrap.create(WebArchive.class, "test.war")
-                .addPackages(true, "de.seven.fate") //
+                .addPackages(true, "de.seven.fate.moa.dao") //
+                .addPackages(true, "de.seven.fate.moa.dto") //
+                .addPackages(true, "de.seven.fate.moa.model") //
+                .addPackages(true, "de.seven.fate.moa.resources") //
                 .addClasses(classes) //
                 .addAsLibraries(DEPENDENCIES.resolve("commons-codec:commons-codec").withTransitivity().asFile()) //
                 .addAsLibraries(DEPENDENCIES.resolve("org.apache.commons:commons-lang3").withTransitivity().asFile()) //
