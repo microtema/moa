@@ -1,12 +1,14 @@
 package it.de.seven.fate.moa.dao;
 
 import de.seven.fate.moa.dao.MessageDAO;
+import it.de.seven.fate.moa.util.DeploymentUtil;
 import junit.framework.Assert;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -24,10 +26,8 @@ public class MessageDAOIT {
     MessageDAO sut;
 
     @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create(JavaArchive.class)
-                .addClass(MessageDAO.class)
-                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    public static WebArchive createDeployment() {
+        return DeploymentUtil.createDeployment();
     }
 
     @Test
