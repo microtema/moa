@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
-   <persistence-unit name="mao">
+   <persistence-unit name="moa">
       <!-- Use this jta-data-source if you're testing on Wildfly AS 10.0.0 (setup by test-ds.xml) -->
       <jta-data-source>jdbc/arquillian</jta-data-source>
 
