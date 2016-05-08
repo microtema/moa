@@ -31,6 +31,7 @@ public final class DeploymentUtil {
                 .addAsLibraries(DEPENDENCIES.resolve("commons-codec:commons-codec").withTransitivity().asFile()) //
                 .addAsLibraries(DEPENDENCIES.resolve("org.apache.commons:commons-lang3").withTransitivity().asFile()) //
                 .addAsLibraries(DEPENDENCIES.resolve("de.seven.fate:model-builder").withTransitivity().asFile()) //
+                .addAsLibraries(DEPENDENCIES.resolve("de.seven.fate:model-converter").withTransitivity().asFile()) //
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml") //
                 .addAsWebInfResource("test-ds.xml") //
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml") //
