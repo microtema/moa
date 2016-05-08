@@ -64,6 +64,7 @@ public class MessageDAOIT {
 
     @Test
     public void count() {
+
         assertEquals(models.size(), sut.count().intValue());
     }
 
@@ -74,14 +75,19 @@ public class MessageDAOIT {
     }
 
     @Test
+    public void list() {
+        assertEquals(models, sut.list());
+    }
+
+    @Test
     public void update() throws Exception {
         Message model = CollectionUtil.random(models);
 
         model.setDescription(UUID.randomUUID().toString());
 
-        transactional(() -> {
-            assertEquals(model, sut.saveOrUpdate(model));
-        });
+        transactional(() ->
+                assertEquals(model, sut.saveOrUpdate(model))
+        );
     }
 
     @Test

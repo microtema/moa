@@ -43,20 +43,44 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <skipTests>false</skipTests>
-                </configuration>
+                <version>2.12</version>
                 <executions>
                     <execution>
+                        <id>integration-test</id>
+                        <phase>integration-test</phase>
                         <goals>
                             <goal>integration-test</goal>
+                        </goals>
+                        <configuration>
+                            <skip>false</skip>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>verify</id>
+                        <phase>verify</phase>
+                        <goals>
                             <goal>verify</goal>
                         </goals>
+                        <configuration>
+                            <skip>false</skip>
+                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
+                    <includes>
+                        <include>**/*AT.java</include>
+                        <include>**/*IT.java</include>
+                        <include>**/*TestSuite.java</include>
+                    </includes>
+                    <reuseForks>false</reuseForks>
+                    <forkCount>1</forkCount>
+                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
@@ -269,6 +293,21 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jaxb</artifactId>
             <version>2.17.0</version>
+        </dependency>
+
+        <!-- spockframework-->
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>1.0-groovy-2.4</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>2.4.4</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

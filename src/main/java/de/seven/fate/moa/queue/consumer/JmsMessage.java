@@ -1,17 +1,16 @@
 package de.seven.fate.moa.queue.consumer;
 
-import org.apache.commons.lang3.StringUtils;
-
-import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
-import javax.jms.*;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageListener;
+import javax.jms.ObjectMessage;
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @MessageDriven(activationConfig = {
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
