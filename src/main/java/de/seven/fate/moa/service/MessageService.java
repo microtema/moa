@@ -16,6 +16,36 @@ public class MessageService {
     @Inject
     private MessageDAO dao;
 
+
+    public List<Message> findAllOrderedByTitle() {
+
+        return dao.list();
+    }
+
+    public Message findById(Long messageId) {
+
+        return dao.get(messageId);
+    }
+
+    public Message updateMessage(Message message) {
+
+        return dao.saveOrUpdate(message);
+    }
+
+    public Message saveMessage(Message message) {
+
+        dao.save(message);
+
+        return message;
+    }
+
+    public Boolean deleteMessage(Long messageId) {
+
+        dao.remove(messageId);
+
+        return Boolean.TRUE;
+    }
+
     public void saveMessages(List<Message> messages) {
 
         dao.saveOrUpdate(messages);

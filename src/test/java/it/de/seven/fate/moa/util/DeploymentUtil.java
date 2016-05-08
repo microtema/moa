@@ -22,6 +22,11 @@ public final class DeploymentUtil {
                 .addPackages(true, "de.seven.fate.moa.dto") //
                 .addPackages(true, "de.seven.fate.moa.model") //
                 .addPackages(true, "de.seven.fate.moa.resources") //
+                .addPackages(true, "de.seven.fate.moa.rest") //
+                .addPackages(true, "de.seven.fate.moa.facade") //
+                .addPackages(true, "de.seven.fate.moa.service") //
+                .addPackages(true, "de.seven.fate.moa.converter") //
+                .addPackages(true, "de.seven.fate.moa.vo") //
                 .addClasses(classes) //
                 .addAsLibraries(DEPENDENCIES.resolve("commons-codec:commons-codec").withTransitivity().asFile()) //
                 .addAsLibraries(DEPENDENCIES.resolve("org.apache.commons:commons-lang3").withTransitivity().asFile()) //
