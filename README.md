@@ -15,6 +15,8 @@ Design/Implement a simple message broker that follows the Message Oriented Archi
     (http://arquillian.org/)
 * **Spock Framework** 
     (http://spockframework.github.io/spock/docs/1.0/index.html)
+* **Soapui Test**
+    (https://www.soapui.org)
 
 ### REST API
 Message
