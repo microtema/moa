@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config lastEditedByUser="Mario" lastEditedByHermesVersion="v1.14 SoapUI" maxThreadPoolSize="5" auditDirectory="C:\data\input" messageFilesDir="C:\data\input" maxMessagesInBrowserPane="1000" copyJMSProviderProperties="false" copyJMSCorrelationID="false" copyJMSType="false" copyJMSExpiration="false" copyJMSReplyTo="false" copyJMSPriority="false" displayFactoryAdmin="true" maxColumnsInStatisticsTable="10" autoBrowseRefreshRate="10" correctDropSemantics="false" selectorImpl="hermes.selector.JAMSELMessageSelectorFactory" queueBrowseConsumerTimeout="0" enableJython="true" lookAndFeel="com.sun.java.swing.plaf.windows.WindowsLookAndFeel" scrollMessagesDuringBrowse="true" base64EncodeMessages="false">
+    <classpathGroup id="ActiveMQ">
+        <library jar="C:/DEVELOPER/JMS/ACTIVEMQ/activemq-all-5.13.3.jar" noFactories="false" factories="org.apache.activemq.ActiveMQConnectionFactory,org.apache.activemq.ActiveMQSslConnectionFactory,org.apache.activemq.ActiveMQXAConnectionFactory"/>
+    </classpathGroup>
+    <classpathGroup id="apache-activemq-5.13.3">
+        <library jar="C:\DEVELOPER\JMS\ACTIVEMQ\apache-activemq-5.13.3\activemq-all-5.13.3.jar" noFactories="false" factories="org.apache.activemq.camel.CamelConnectionFactory,org.apache.activemq.spring.ActiveMQXAConnectionFactory,org.apache.activemq.spring.ActiveMQConnectionFactory,org.apache.activemq.pool.PooledConnectionFactory,org.apache.activemq.pool.JcaPooledConnectionFactory,org.apache.activemq.pool.XaPooledConnectionFactory,org.springframework.jms.connection.TransactionAwareConnectionFactoryProxy,org.springframework.jms.connection.SingleConnectionFactory,org.springframework.jms.connection.CachingConnectionFactory,org.springframework.jms.connection.UserCredentialsConnectionFactoryAdapter,org.springframework.jms.connection.DelegatingConnectionFactory,org.apache.activemq.ActiveMQSslConnectionFactory,org.apache.activemq.ActiveMQXAConnectionFactory,org.apache.activemq.ActiveMQConnectionFactory,org.apache.activemq.jms.pool.JcaPooledConnectionFactory,org.apache.activemq.jms.pool.PooledConnectionFactory,org.apache.activemq.jms.pool.XaPooledConnectionFactory"/>
+        <library jar="C:\DEVELOPER\JMS\ACTIVEMQ\apache-activemq-5.13.3\lib\geronimo-j2ee-management_1.1_spec-1.0.1.jar" noFactories="true"/>
+    </classpathGroup>
+    <renderer className="hermes.renderers.DefaultMessageRenderer">
+        <properties>
+            <property name="bytesIsString" value="false"/>
+            <property name="bytesIsObject" value="false"/>
+            <property name="active" value="true"/>
+            <property name="messageCache" value="100"/>
+            <property name="bytesIsObjectBufferSize" value="65536"/>
+            <property name="toStringOnObjectMessage" value="false"/>
+        </properties>
+    </renderer>
+    <renderer className="hermes.renderers.DefaultMessageHeaderRenderer">
+        <properties>
+            <property name="active" value="true"/>
+        </properties>
+    </renderer>
+    <renderer className="hermes.renderers.ToStringMessageRenderer">
+        <properties>
+            <property name="active" value="true"/>
+        </properties>
+    </renderer>
+    <renderer className="hermes.renderers.HexMessageRenderer">
+        <properties>
+            <property name="active" value="true"/>
+        </properties>
+    </renderer>
+    <renderer className="hermes.renderers.XMLMessageRenderer">
+        <properties>
+            <property name="active" value="true"/>
+        </properties>
+    </renderer>
+    <renderer className="hermes.renderers.fix.FIXMessageRenderer">
+        <properties>
+            <property name="displayValueWithEnum" value="true"/>
+            <property name="active" value="true"/>
+            <property name="messageCache" value="100"/>
+            <property name="displayHeaderAndTrailer" value="true"/>
+        </properties>
+    </renderer>
+    <renderer className="hermes.renderers.EBCDICMessageRenderer">
+        <properties>
+            <property name="rowLength" value="16"/>
+            <property name="undisplayableChar" value="."/>
+            <property name="active" value="true"/>
+            <property name="maxMessageSize" value="5242880"/>
+        </properties>
+    </renderer>
+    <factory classpathId="System">
+        <provider className="hermes.providers.file.FileConnectionFactory">
+            <properties>
+                <property name="baseDirectory" value="${hermes.home}/bin/messages"/>
+            </properties>
+        </provider>
+        <connection clientID="" connectionPerThread="false">
+            <session id="Files" reconnects="0" audit="false" useConsumerForQueueBrowse="false"/>
+        </connection>
+        <destination name="examples.xml" domain="1"/>
+        <destination name="fix.xml" domain="1" durable="false" useLocalRenderer="true"/>
+        <extension className="hermes.ext.DefaultHermesAdminFactory">
+            <properties/>
+        </extension>
+    </factory>
+    <factory classpathId="ActiveMQ">
+        <provider className="org.apache.activemq.ActiveMQConnectionFactory">
+            <properties/>
+        </provider>
+        <connection clientID="" connectionPerThread="false">
+            <session id="activeMQ" reconnects="0" transacted="true" audit="false" useConsumerForQueueBrowse="false"/>
+        </connection>
+        <destination name="testQueue1" domain="1" durable="false"/>
+        <extension className="hermes.ext.activemq.ActiveMQAdminFactory">
+            <properties>
+                <property name="brokerName" value="localhost"/>
+                <property name="serviceURL" value="service:jmx:rmi:///jndi/rmi://localhost:8161/jmxrmi"/>
+            </properties>
+        </extension>
+    </factory>
+    <factory classpathId="System">
+        <provider className="hermes.NullConnectionFactory">
+            <properties/>
+        </provider>
+        <connection clientID="" connectionPerThread="false">
+            <session id="&lt;new&gt;" reconnects="0" transacted="true" audit="false" useConsumerForQueueBrowse="false"/>
+        </connection>
+        <destination name="examples.xml" domain="1"/>
+        <destination name="fix.xml" domain="1" durable="false" useLocalRenderer="true"/>
+        <extension className="hermes.ext.DefaultHermesAdminFactory">
+            <properties/>
+        </extension>
+    </factory>
+    <quickFIX cacheSize="1024" filterSessionMsgTypes="false"/>
+</config>

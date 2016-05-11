@@ -1,4 +1,4 @@
-package de.seven.fate.moa.model.builder;
+package de.seven.fate.moa.builder;
 
 import de.seven.fate.moa.dto.MessageDTO;
 import de.seven.fate.moa.model.Message;

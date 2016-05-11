@@ -1,7 +1,7 @@
 package groovy.de.seven.fate.moa.converter
 
 import de.seven.fate.moa.converter.MessageDTO2MessageConverter
-import de.seven.fate.moa.model.builder.MessageDTOBuilder
+import de.seven.fate.moa.builder.MessageDTOBuilder
 import spock.lang.Shared
 import spock.lang.Specification
 

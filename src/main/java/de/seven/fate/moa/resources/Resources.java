@@ -10,6 +10,9 @@ import java.util.logging.Logger;
  */
 public class Resources {
 
+    public static final String QUEUE_NAME = "java:/jms/queue/ExpiryQueue";
+    public static final String JMS_CONNECTION_FACTORY = "java:jboss/DefaultJMSConnectionFactory";
+
     /**
      *  put this in your class
      *  @Inject

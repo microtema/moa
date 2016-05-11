@@ -1,7 +1,7 @@
 package de.seven.fate.moa.route;
 
 import de.seven.fate.moa.dto.MessagesDTO;
-import de.seven.fate.moa.queue.producer.MessageProducer;
+import de.seven.fate.moa.jms.queue.producer.MessageProducer;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 

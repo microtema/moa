@@ -1,8 +1,7 @@
-package de.seven.fate.moa.queue.consumer;
+package de.seven.fate.moa.jms.queue.consumer;
 
-import javax.ejb.ActivationConfigProperty;
-import javax.ejb.MessageDriven;
-import javax.enterprise.context.ApplicationScoped;
+import de.seven.fate.moa.jms.proccesor.JmsProcessor;
+
 import javax.inject.Inject;
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -12,36 +11,30 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@MessageDriven(activationConfig = {
-        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-        @ActivationConfigProperty(propertyName = "destination", propertyValue = "jms/queue/ExpiryQueue")
-})
-@ApplicationScoped
-public class JmsMessage implements MessageListener {
+
+public abstract class AbstractJmsMessageBean implements MessageListener {
 
     @Inject
     private Logger logger;
 
-    @Inject
-    private MessageJmsConsumer consumers;
 
     @Override
     public void onMessage(Message message) {
 
         try {
 
-            logger.info("process JMSMessage: " + message.getJMSMessageID());
-
             String messageType = message.getStringProperty("type");
 
-            JmsConsumer consumer = getMessageConsumer(messageType);
+            logger.info("process Message with MessageID: " + message.getJMSMessageID() + " and type: " + messageType);
 
-            consumer.process(getObject(message));
+            getJmsProcessor().process(getObject(message));
 
         } catch (JMSException e) {
             logger.log(Level.WARNING, "unable to process jms message" + message, e);
         }
     }
+
+    protected abstract JmsProcessor getJmsProcessor();
 
     private Serializable getObject(Message message) throws JMSException {
 
@@ -53,11 +46,6 @@ public class JmsMessage implements MessageListener {
         }
 
         throw new IllegalArgumentException("unsupported message type: " + message.getClass().getSimpleName());
-    }
-
-    private JmsConsumer getMessageConsumer(String messageType) {
-
-        return consumers;
     }
 
 }

@@ -2,7 +2,7 @@ package de.seven.fate.moa.converter;
 
 import de.seven.fate.moa.dto.MessageDTO;
 import de.seven.fate.moa.model.Message;
-import de.seven.fate.moa.model.builder.MessageDTOBuilder;
+import de.seven.fate.moa.builder.MessageDTOBuilder;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

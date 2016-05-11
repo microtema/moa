@@ -1,4 +1,4 @@
-package de.seven.fate.moa.queue.consumer;
+package de.seven.fate.moa.jms.proccesor;
 
 import de.seven.fate.moa.converter.MessageDTO2MessageConverter;
 import de.seven.fate.moa.dto.MessageDTO;
@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 /**
  * Created by Mario on 07.05.2016.
  */
-public class MessageJmsConsumer implements JmsConsumer<MessagesDTO> {
+public class JmsMessagesProcessor implements JmsProcessor<MessagesDTO> {
 
     @Inject
     private Logger logger;
@@ -38,6 +38,7 @@ public class MessageJmsConsumer implements JmsConsumer<MessagesDTO> {
 
     @Override
     public String getObjectType() {
+
         return MessagesDTO.class.getSimpleName();
     }
 }

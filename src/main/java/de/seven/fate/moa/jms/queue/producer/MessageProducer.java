@@ -1,23 +1,19 @@
-package de.seven.fate.moa.queue.producer;
+package de.seven.fate.moa.jms.queue.producer;
 
-import de.seven.fate.moa.dto.MessagesDTO;
-import de.seven.fate.model.util.CollectionUtil;
+import org.apache.commons.lang3.Validate;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.jms.*;
 import java.io.Serializable;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * Created by Mario on 07.05.2016.
  */
-@Singleton
+@Stateless
 public class MessageProducer {
 
     @Inject
@@ -32,7 +28,7 @@ public class MessageProducer {
 
 
     public void sendMessage(Serializable objectModel) {
-        logger.info("send Message to queue: " + objectModel);
+        Validate.notNull(objectModel);
 
         Message message = context.createObjectMessage(objectModel);
 
@@ -47,8 +43,12 @@ public class MessageProducer {
         try {
             textMessage.setStringProperty(propertyName, propertyValue);
         } catch (JMSException e) {
-            logger.log(Level.WARNING, e.getMessage(), e);
-            throw new IllegalArgumentException("unable to set property: " + propertyName + " with value: " + propertyName);
+
+            String message = "unable to set property: " + propertyName + " with value: " + propertyName;
+
+            logger.log(Level.WARNING, message, e);
+
+            throw new IllegalArgumentException(message);
         }
     }
 }

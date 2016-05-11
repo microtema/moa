@@ -1,9 +1,9 @@
 package de.seven.fate.moa.route;
 
-import de.seven.fate.moa.dto.MessagesDTO;
-import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.Expression;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.builder.ValueBuilder;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -11,19 +11,14 @@ import javax.annotation.Resource;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
-import javax.xml.bind.JAXBContext;
 
-import org.apache.camel.converter.jaxb.JaxbDataFormat;
-
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Singleton
 @Startup
 public class XmlMessageRouteBuilder extends RouteBuilder {
 
-    private static final JaxbDataFormat messagesData = new JaxbDataFormat();
-
-    private static final CamelContext camelContext = new DefaultCamelContext();
 
     @Inject
     private Logger logger;
@@ -43,24 +38,18 @@ public class XmlMessageRouteBuilder extends RouteBuilder {
     @Resource(lookup = "java:global/DLQ_URI")
     private String dlqUri;
 
+    @Inject
+    private MessageCamelContext messageCamelContext;
+
 
     @PostConstruct
     private void init() {
 
-        try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(MessagesDTO.class);
+        addRouteToCamelContext();
 
-            messagesData.setContext(jaxbContext);
-
-            camelContext.addRoutes(this);
-
-            camelContext.start();
-
-            logger.info("Camel context started...");
-        } catch (Exception e) {
-            log.warn(e.getMessage());
-        }
+        startCamelContext();
     }
+
 
     @Override
     public void configure() {
@@ -71,17 +60,39 @@ public class XmlMessageRouteBuilder extends RouteBuilder {
         // in case of any exception then try to redeliver up till n times with n delay
         onException(Exception.class).maximumRedeliveries(maximumRedeliveries).redeliveryDelay(redeliveryDelay);
 
-        from(fromUri).unmarshal(messagesData).to(toUri);
+        from(fromUri).unmarshal(messageCamelContext.getMessagesData()).to(toUri);
+    }
+
+
+    private void startCamelContext() {
+
+        try {
+            messageCamelContext.start();
+
+            logger.info("Camel context started...");
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "unable to start Camel context", e);
+        }
+    }
+
+    private void addRouteToCamelContext() {
+
+        try {
+            messageCamelContext.addRoutes(this);
+
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "unable to add routes", e);
+        }
     }
 
     @PreDestroy
     private void destroy() {
 
         try {
-            camelContext.stop();
+            messageCamelContext.stop();
             logger.info("Camel context stopped...");
         } catch (Exception e) {
-            log.warn(e.getMessage());
+            logger.log(Level.WARNING, "unable to stop messageCamelContext", e);
         }
     }
 
