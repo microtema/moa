@@ -21,10 +21,10 @@ A simple message broker that follows the Message Oriented Architecture to handle
 ### REST API
 Message
 
-@GET        /rest/message Return all Messages order by Title
-@POST       /rest/message/ @BODY{Message} will create new Message
-@PUT        /rest/message/ @BODY{Message} will update existing Message
-@DELETE     /rest/message/{id} will delete Message by given id
+* @GET        /rest/message Return all Messages order by Title
+* @POST       /rest/message/ @BODY{Message} will create new Message
+* @PUT        /rest/message/ @BODY{Message} will update existing Message
+* @DELETE     /rest/message/{id} will delete Message by given id
 
 
 
