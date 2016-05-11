@@ -12,7 +12,7 @@ import javax.inject.Inject;
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
         @ActivationConfigProperty(propertyName = "destination", propertyValue = "jms/queue/ExpiryQueue"),
         @ActivationConfigProperty(propertyName = "messageSelector", propertyValue = "type = 'MessageDTO'")
-})
+}, description = "Handle only JMS Messages filtered by MessageSelector [type = 'MessageDTO']")
 @ApplicationScoped
 public class JmsMessageBean extends AbstractJmsMessageBean {
 
@@ -23,6 +23,7 @@ public class JmsMessageBean extends AbstractJmsMessageBean {
 
     @Override
     protected JmsProcessor getJmsProcessor() {
+
         return processor;
     }
 }

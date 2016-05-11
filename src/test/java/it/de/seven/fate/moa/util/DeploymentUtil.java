@@ -27,6 +27,7 @@ public final class DeploymentUtil {
                 .addPackages(true, "de.seven.fate.moa.service") //
                 .addPackages(true, "de.seven.fate.moa.converter") //
                 .addPackages(true, "de.seven.fate.moa.vo") //
+                .addPackages(true, "de.seven.fate.moa.exception") //
                 .addClasses(classes) //
                 .addAsLibraries(DEPENDENCIES.resolve("org.apache.commons:commons-lang3").withTransitivity().asFile()) //
                 .addAsLibraries(DEPENDENCIES.resolve("de.seven.fate:model-builder").withTransitivity().asFile()) //

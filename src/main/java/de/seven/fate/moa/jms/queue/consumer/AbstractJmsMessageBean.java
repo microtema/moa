@@ -1,5 +1,6 @@
 package de.seven.fate.moa.jms.queue.consumer;
 
+import de.seven.fate.moa.exception.JmsMessageException;
 import de.seven.fate.moa.jms.proccesor.JmsProcessor;
 
 import javax.inject.Inject;
@@ -45,7 +46,7 @@ public abstract class AbstractJmsMessageBean implements MessageListener {
             return objectMessage.getObject();
         }
 
-        throw new IllegalArgumentException("unsupported message type: " + message.getClass().getSimpleName());
+        throw new JmsMessageException("unsupported message type: " + message.getClass().getSimpleName());
     }
 
 }
