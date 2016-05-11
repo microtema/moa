@@ -1,5 +1,5 @@
 # Message Oriented Architecture
-Design/Implement a simple message broker that follows the Message Oriented Architecture to handle various functionality.
+A simple message broker that follows the Message Oriented Architecture to handle various functionality.
 
 # Tasks
 ## Producer/Consumer
