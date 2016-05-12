@@ -8,7 +8,7 @@ import spock.lang.Specification
 /**
  * Created by Mario on 08.05.2016.
  */
-class MessageDTO2MessageConverterSpeck extends Specification {
+class MessageDTO2MessageConverterSpec extends Specification {
 
     @Shared
     def sut = new MessageDTO2MessageConverter();

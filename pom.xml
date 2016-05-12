@@ -73,9 +73,9 @@
                 <configuration>
                     <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
                     <includes>
-                        <include>**/*AT.java</include>
+                        <include>**/*Test.java</include>
                         <include>**/*IT.java</include>
-                        <include>**/*TestSuite.java</include>
+                        <include>**/*Spec.java</include>
                     </includes>
                     <reuseForks>false</reuseForks>
                     <forkCount>1</forkCount>

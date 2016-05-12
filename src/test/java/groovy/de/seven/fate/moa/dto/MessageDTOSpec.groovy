@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement
 /**
  * Created by Mario on 08.05.2016.
  */
-class MessageDTOTest extends Specification {
+class MessageDTOSpec extends Specification {
 
     @Shared
     def sut = new MessageDTO();
