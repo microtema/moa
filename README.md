@@ -53,6 +53,7 @@ Ensure you have install dependencies in local repository:
 
 > de.seven.fate:model-builder
   (https://github.com/sevenfate/model-builder/tree/develop)
+  
 > de.seven.fate:model-converter
   (https://github.com/sevenfate/model-converter/tree/develop)
 
@@ -78,8 +79,8 @@ We'll be building a simple but realistic Message Oriented Architecture, a basic 
 We'll provide:
 
 * A ORM of Messages
-* A form to import Messages via Apache Camel Route
-* A Topic JMS with MDB
+* Import Messages via Apache Camel Route
+* A Queue JMS with MDB
 * JPA Persistence Layer to persist messages int DB (MS SQL)
 * Junit Test and IT
 * CDD and TDD
