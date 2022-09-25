@@ -165,12 +165,12 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>4.2.0.Final</version>
+            <version>6.0.23.Final</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.1.0.Final</version>
+            <version>5.4.24.Final</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -181,7 +181,7 @@
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.10</version>
+            <version>1.13</version>
         </dependency>
         <dependency>
             <groupId>de.seven.fate</groupId>
@@ -234,14 +234,14 @@
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-jackson-provider</artifactId>
-            <version>2.3.6.Final</version>
+            <version>3.11.0.Final</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-multipart-provider</artifactId>
-            <version>2.3.6.Final</version>
+            <version>3.11.0.Final</version>
             <scope>provided</scope>
             <!-- Probably its not.. will see soonish -->
         </dependency>
@@ -250,7 +250,7 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.2.3</version>
+            <version>4.5.13</version>
         </dependency>
 
         <dependency>
